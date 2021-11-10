@@ -2,7 +2,7 @@ package com.bertalandancs.otpflickrsearcher
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.bertalandancs.otpflickrsearcher.ui.main.SearchFragment
+import com.bertalandancs.otpflickrsearcher.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, SearchFragment.newInstance())
+                .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
         }
     }
