@@ -14,12 +14,10 @@
 
         <ImageView
             android:id="@+id/detailedImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:layout_gravity="center"
-            tools:layout_width="125dp"
-            tools:layout_height="125dp"
-            tools:src="#FF0000">
+            android:src="#FF0000">
 
         </ImageView>
 
