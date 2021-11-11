@@ -1,6 +1,5 @@
 package com.bertalandancs.otpflickrsearcher.ui.main
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
@@ -29,9 +28,9 @@ class SearchResultsAdapter(private val dataSet: List<ThumbnailImage>) :
     inner class ViewHolder(private val binding: SearchResultItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(thumbnailImage: ThumbnailImage){
+        fun bind(thumbnailImage: ThumbnailImage) {
             //TODO: Load images with Picasso or Glide
-            binding.imageCard.setOnClickListener{
+            binding.imageCard.setOnClickListener {
                 Navigation.findNavController(itemView)
                     .navigate(R.id.action_mainFragment_to_detailsFragment)
             }

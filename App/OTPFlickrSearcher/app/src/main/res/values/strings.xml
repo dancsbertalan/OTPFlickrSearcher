@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OtpFlickrSearcher</string>
+    <string name="app_name">OTP Flickr Searcher</string>
     <string name="details">Details</string>
     <string name="search">Search</string>
 </resources>
