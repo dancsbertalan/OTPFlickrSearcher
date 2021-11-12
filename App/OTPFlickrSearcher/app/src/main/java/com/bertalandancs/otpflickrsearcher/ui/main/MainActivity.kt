@@ -1,15 +1,12 @@
-package com.bertalandancs.otpflickrsearcher
+package com.bertalandancs.otpflickrsearcher.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.bertalandancs.otpflickrsearcher.R
 import com.bertalandancs.otpflickrsearcher.databinding.MainActivityBinding
-import com.bertalandancs.otpflickrsearcher.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,7 +22,7 @@ class MainActivity : AppCompatActivity() {
                 .navController
         val appbarConfig = AppBarConfiguration(navController.graph)
         setSupportActionBar(binding.toolbar)
-        binding.toolbar.setupWithNavController(navController,appbarConfig)
+        binding.toolbar.setupWithNavController(navController, appbarConfig)
     }
 
 }
