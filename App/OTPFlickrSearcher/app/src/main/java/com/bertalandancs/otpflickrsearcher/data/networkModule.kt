@@ -1,5 +1,6 @@
 package com.bertalandancs.otpflickrsearcher.data
 
+import android.util.Log
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -17,8 +18,9 @@ val networkModule = module {
                 val currentUrl = it.request().url()
                 val newRequest = it.request()
                     .newBuilder()
-                    .url("$currentUrl&api_key$apiKey")
+                    .url("$currentUrl&api_key=$apiKey")
                     .build()
+                Log.d("OkHttp", "request url: ${newRequest.url()}")
                 it.proceed(newRequest)
             }
             .build()

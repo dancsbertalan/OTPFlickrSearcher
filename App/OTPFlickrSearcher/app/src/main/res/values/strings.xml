@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">OTP Flickr Searcher</string>
-    <string name="details">Details</string>
+    <string name="title_details">Details</string>
     <string name="search">Search</string>
+    <string name="msg_internet_error">Internet error</string>
+    <string name="msg_unknown_error">An unknown error occurred: </string>
+    <string name="msg_error_from_server">We got an error from server, code is </string>
 </resources>

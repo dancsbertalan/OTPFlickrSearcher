@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.bertalandancs.otpflickrsearcher.ui.details.DetailsFragment"
-        android:label="@string/details"
+        android:label="@string/title_details"
         tools:layout="@layout/details_fragment" >
         <action
             android:id="@+id/action_detailsFragment_to_mainFragment"

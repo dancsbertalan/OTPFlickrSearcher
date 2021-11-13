@@ -11,6 +11,8 @@ interface FlickrService {
     fun getImages(
         @Query("per_page") perPage: Int = 20,
         @Query("page") page: Int = 1,
-        @Query("text") text: String
+        @Query("text") text: String,
+        @Query("extras") extras: String? = null
     ): Observable<Rsp>
 }
+
