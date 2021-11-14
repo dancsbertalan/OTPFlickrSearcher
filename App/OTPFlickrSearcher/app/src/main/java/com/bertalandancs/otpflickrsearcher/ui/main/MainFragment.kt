@@ -1,5 +1,6 @@
 package com.bertalandancs.otpflickrsearcher.ui.main
 
+import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -11,6 +12,7 @@ import com.bertalandancs.otpflickrsearcher.R
 import com.bertalandancs.otpflickrsearcher.databinding.MainFragmentBinding
 import com.bertalandancs.otpflickrsearcher.ui.main.adapter.SearchResultsAdapter
 import com.bertalandancs.otpflickrsearcher.ui.main.model.ThumbnailImage
+import com.bertalandancs.otpflickrsearcher.utils.Utils
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
@@ -55,6 +57,7 @@ class MainFragment : Fragment() {
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 Log.d(TAG, "onQueryTextSubmit: $query")
+                Utils.hideKeyboardFrom(requireContext(), searchView)
                 viewModel.getImages(query)
                 return true
             }
