@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
+
 }
 
 android {
@@ -47,9 +49,9 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //android navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
-    androidTestImplementation "androidx.navigation:navigation-testing:2.3.5"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.4.0-beta02"
+    implementation "androidx.navigation:navigation-ui-ktx:2.4.0-beta02"
+    androidTestImplementation "androidx.navigation:navigation-testing:2.4.0-beta02"
 
     //koin
     implementation "io.insert-koin:koin-core:3.1.3"

@@ -9,13 +9,16 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bertalandancs.otpflickrsearcher.R
 import com.bertalandancs.otpflickrsearcher.databinding.MainFragmentBinding
+import com.bertalandancs.otpflickrsearcher.ui.main.adapter.SearchResultsAdapter
+import com.bertalandancs.otpflickrsearcher.ui.main.model.ThumbnailImage
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainFragment : Fragment() {
-
-    private val TAG = "MainFragment"
 
     private val viewModel by viewModel<MainViewModel>()
 
@@ -24,6 +27,7 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private val disposable: CompositeDisposable = CompositeDisposable()
+    private val searchResultsAdapter = SearchResultsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +36,14 @@ class MainFragment : Fragment() {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putParcelableArrayList(
+            CURRENT_RESULTS,
+            searchResultsAdapter.results as ArrayList<ThumbnailImage>
+        )
+        super.onSaveInstanceState(outState)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -57,13 +69,33 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (savedInstanceState != null && !savedInstanceState.isEmpty)
+            savedInstanceState.getParcelableArrayList<ThumbnailImage>(CURRENT_RESULTS)?.let {
+                searchResultsAdapter.setResultList(it)
+                binding.searchResults.isVisible = true
+            }
+
+
+        binding.searchResults.apply {
+            setHasFixedSize(true)
+            adapter = searchResultsAdapter
+            layoutManager = FlexboxLayoutManager(this@MainFragment.context).apply {
+                flexDirection = FlexDirection.ROW
+                justifyContent = JustifyContent.CENTER
+            }
+        }
+
         disposable.add(
-            viewModel.images.subscribe({
+            viewModel.searchStatus.subscribe({
                 Log.d(TAG, "download images onNext: $it")
                 when (it) {
-                    is SearchStatus.Loading -> binding.progressIndicator.isVisible = it.isLoading
+                    is SearchStatus.Loading -> {
+                        binding.progressIndicator.isVisible = it.isLoading
+                        binding.searchResults.isVisible = !it.isLoading
+                    }
                     is SearchStatus.Ok -> {
-                        //TODO: Show images
+                        searchResultsAdapter.setResultList(it.thumbnails)
                     }
                     is SearchStatus.Fail -> Toast.makeText(
                         requireContext(),
@@ -94,5 +126,10 @@ class MainFragment : Fragment() {
         _binding = null
         disposable.clear()
         viewModelStore.clear()
+    }
+
+    companion object {
+        private const val TAG = "MainFragment"
+        private const val CURRENT_RESULTS = "CURRENT_RESULTS"
     }
 }

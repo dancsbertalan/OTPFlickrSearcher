@@ -28,7 +28,7 @@ class MainViewModel(private val imagesRepository: ImagesRepository) : ViewModel(
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     private val search = PublishSubject.create<SearchStatus>()
-    val images: Observable<SearchStatus> = search
+    val searchStatus: Observable<SearchStatus> = search
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 
