@@ -36,6 +36,9 @@ public class Photo {
     @Attribute(name = "url_n", required = false)
     public String urlN;
 
+    @Attribute(name = "url_t", required = false)
+    public String urlT;
+
     @Attribute(name = "url_o", required = false)
     public String urlO;
 }

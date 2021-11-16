@@ -2,38 +2,44 @@ package com.bertalandancs.otpflickrsearcher.data
 
 import android.util.Log
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
+import timber.log.Timber
 
 private const val apiKey: String = "65803e8f6e4a3982200621cad356be51"
 private const val baseUrl: String = "https://www.flickr.com/services/rest/"
 
 val networkModule = module {
 
-    fun provideClient(): OkHttpClient {
-        return OkHttpClient.Builder()
+    fun provideClient() =
+        OkHttpClient.Builder()
             .addInterceptor {
-                val currentUrl = it.request().url()
+                val currentUrl = it.request().url
                 val newRequest = it.request()
                     .newBuilder()
                     .url("$currentUrl&api_key=$apiKey")
                     .build()
-                Log.d("OkHttp", "request url: ${newRequest.url()}")
                 it.proceed(newRequest)
             }
+            .addInterceptor(
+                HttpLoggingInterceptor().apply {
+//                    redactHeader("set-cookie") // We can disable some field logging which contains sensitive information.
+                    setLevel(HttpLoggingInterceptor.Level.BODY)
+                }
+            )
             .build()
-    }
 
-    fun provideRetrofit(client: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .client(client)
-            .baseUrl(baseUrl)
-            .addConverterFactory(SimpleXmlConverterFactory.create()) //TODO: Change to JAXB converter
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .build()
-    }
+
+    fun provideRetrofit(client: OkHttpClient) = Retrofit.Builder()
+        .client(client)
+        .baseUrl(baseUrl)
+        .addConverterFactory(SimpleXmlConverterFactory.create()) //TODO: Change to JAXB converter
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+        .build()
+
 
     single { provideClient() }
     single { provideRetrofit(get()) }

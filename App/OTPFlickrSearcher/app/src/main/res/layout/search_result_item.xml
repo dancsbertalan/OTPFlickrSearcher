@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:alignContent="stretch"
@@ -20,7 +21,10 @@
             android:id="@+id/image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/half_element_margin">
+            android:padding="@dimen/half_element_margin"
+            tools:layout_height="100dp"
+            tools:layout_width="100dp"
+            tools:src="#FF2333">
 
         </ImageView>
 

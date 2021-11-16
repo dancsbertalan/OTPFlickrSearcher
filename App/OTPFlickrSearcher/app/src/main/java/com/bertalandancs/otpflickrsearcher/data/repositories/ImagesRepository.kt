@@ -2,6 +2,7 @@ package com.bertalandancs.otpflickrsearcher.data.repositories
 
 import com.bertalandancs.otpflickrsearcher.data.api.FlickrService
 import com.bertalandancs.otpflickrsearcher.data.model.Photo
+import com.bertalandancs.otpflickrsearcher.data.model.Photos
 import com.bertalandancs.otpflickrsearcher.data.model.RspStatus
 import io.reactivex.rxjava3.core.Observable
 
@@ -23,14 +24,13 @@ class ImagesRepositoryImpl(private val service: FlickrService) : ImagesRepositor
     ): Observable<GetImagesResponse> =
         service.getImages(perPage, page, text, extras).flatMap {
             if (RspStatus.valueOf(it.stat) == RspStatus.ok)
-                Observable.just(GetImagesResponse.StatusOk(it.photos.photoList))
+                Observable.just(GetImagesResponse.StatusOk(it.photos))
             else
                 Observable.just(GetImagesResponse.StatusFailed(it.error.code))
-
         }
 }
 
 open class GetImagesResponse {
     class StatusFailed(val errorCode: Int) : GetImagesResponse()
-    class StatusOk(val photos: List<Photo>?) : GetImagesResponse()
+    class StatusOk(val photos: Photos) : GetImagesResponse()
 }

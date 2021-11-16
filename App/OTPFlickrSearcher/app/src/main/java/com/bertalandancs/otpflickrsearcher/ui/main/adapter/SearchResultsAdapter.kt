@@ -1,6 +1,5 @@
 package com.bertalandancs.otpflickrsearcher.ui.main.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
@@ -9,16 +8,22 @@ import com.bertalandancs.otpflickrsearcher.R
 import com.bertalandancs.otpflickrsearcher.databinding.SearchResultItemBinding
 import com.bertalandancs.otpflickrsearcher.ui.main.model.ThumbnailImage
 import com.squareup.picasso.Picasso
+import timber.log.Timber
 
 class SearchResultsAdapter : RecyclerView.Adapter<SearchResultsAdapter.ViewHolder>() {
 
     private lateinit var binding: SearchResultItemBinding
 
     var results: List<ThumbnailImage> = ArrayList()
+        set(value) {
+            field = value
+            notifyItemRangeInserted(0, results.size)
+        }
 
-    fun setResultList(results: List<ThumbnailImage>) {
-        this.results = results
-        notifyItemRangeChanged(0, results.size)
+    fun addToResultList(results: List<ThumbnailImage>) {
+        val oldSize = this.results.size
+        (this.results as ArrayList<ThumbnailImage>).addAll(results)
+        notifyItemRangeInserted(oldSize - 1, this.results.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,14 +34,15 @@ class SearchResultsAdapter : RecyclerView.Adapter<SearchResultsAdapter.ViewHolde
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.onBind(position)
 
-    override fun getItemCount() = results.size
+    override fun getItemCount(): Int {
+        return results.size
+    }
 
     inner class ViewHolder(private val binding: SearchResultItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(position: Int) {
             val item = results[position]
-            Log.i(TAG, "onBind for ${item.url}")
             Picasso.get().load(item.url).into(binding.image)
 
             binding.imageCard.setOnClickListener {
@@ -46,9 +52,5 @@ class SearchResultsAdapter : RecyclerView.Adapter<SearchResultsAdapter.ViewHolde
                     )
             }
         }
-    }
-
-    companion object {
-        private const val TAG: String = "SearchResultsAdapter"
     }
 }

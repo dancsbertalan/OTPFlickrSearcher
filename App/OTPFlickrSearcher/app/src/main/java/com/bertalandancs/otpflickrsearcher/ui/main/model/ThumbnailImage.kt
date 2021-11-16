@@ -4,4 +4,8 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class ThumbnailImage(val id: Long, val url: String) : Parcelable
+class ThumbnailImage(val id: Long, val url: String) : Parcelable {
+    override fun toString(): String {
+        return "ThumbnailImage(id=$id)"
+    }
+}
