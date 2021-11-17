@@ -1,33 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.details.DetailsFragment">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/openFullscreenImage"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:layout_margin="@dimen/element_margin">
+        android:layout_margin="@dimen/element_margin"
+        android:src="@android:drawable/ic_menu_zoom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <ImageView
-            android:id="@+id/detailedImage"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_gravity="center"
-            android:src="#FF0000">
-
-        </ImageView>
-
-    </androidx.cardview.widget.CardView>
-
-    <!-- TODO: Details: Upload date, owner, size etc (?) -->
-    <TextView
-        android:id="@+id/details"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.8"/>
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/element_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/imageTitle"
+                style="@style/ImageTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Title" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/detailedImage"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/half_element_margin"
+                    tools:src="#FF0000">
+
+                </ImageView>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <com.bertalandancs.otpflickrsearcher.view.DetailsItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:title="@string/owner_title">
+
+                <com.bertalandancs.otpflickrsearcher.view.DetailsItem
+                    android:id="@+id/ownerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/element_margin"
+                    app:title="@string/name_title"
+                    tools:value="Owner name" />
+
+                <com.bertalandancs.otpflickrsearcher.view.DetailsItem
+                    android:id="@+id/ownerLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/element_margin"
+                    app:title="@string/location_title"
+                    tools:value="Owner location" />
+
+            </com.bertalandancs.otpflickrsearcher.view.DetailsItem>
+
+            <com.bertalandancs.otpflickrsearcher.view.DetailsItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:title="@string/visibility_title">
+
+                <TextView
+                    android:id="@+id/publicVisible"
+                    style="@style/DetailsItemValueStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/element_margin"
+                    android:text="@string/is_visible_for_everyone" />
+
+                <TextView
+                    android:id="@+id/friendsVisible"
+                    style="@style/DetailsItemValueStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/element_margin"
+                    android:text="@string/is_visible_for_friends" />
+
+                <TextView
+                    android:id="@+id/familyVisible"
+                    style="@style/DetailsItemValueStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/element_margin"
+                    android:text="@string/is_visible_for_family" />
+
+            </com.bertalandancs.otpflickrsearcher.view.DetailsItem>
+
+            <com.bertalandancs.otpflickrsearcher.view.DetailsItem
+                android:id="@+id/tagsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:title="@string/tags_title" />
+
+            <com.bertalandancs.otpflickrsearcher.view.DetailsItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/page_url_title"
+                app:value="https://www.flickr.com/" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

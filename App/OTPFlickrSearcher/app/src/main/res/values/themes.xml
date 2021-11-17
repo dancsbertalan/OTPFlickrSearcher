@@ -27,4 +27,17 @@
         <item name="android:textColorHint">@android:color/white</item>
     </style>
 
+    <style name="ImageTitleStyle" parent="DetailsItemTitleStyle">
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="DetailsItemTitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="DetailsItemValueStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

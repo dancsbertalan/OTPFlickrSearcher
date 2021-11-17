@@ -5,4 +5,13 @@
     <string name="msg_internet_error">Internet error</string>
     <string name="msg_unknown_error">An unknown error occurred: </string>
     <string name="msg_error_from_server">We got an error from server, code is </string>
+    <string name="is_visible_for_everyone">Is visible for everyone</string>
+    <string name="is_visible_for_friends">Is visible for friends</string>
+    <string name="is_visible_for_family">Is visible for family</string>
+    <string name="owner_title">Owner</string>
+    <string name="name_title">Name</string>
+    <string name="location_title">Location</string>
+    <string name="visibility_title">Visibility</string>
+    <string name="tags_title">Tags</string>
+    <string name="page_url_title">Page url</string>
 </resources>

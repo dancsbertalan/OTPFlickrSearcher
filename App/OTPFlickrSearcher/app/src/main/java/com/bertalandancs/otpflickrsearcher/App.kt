@@ -4,6 +4,7 @@ import android.app.Application
 import com.bertalandancs.otpflickrsearcher.data.api.flickrServiceModule
 import com.bertalandancs.otpflickrsearcher.data.networkModule
 import com.bertalandancs.otpflickrsearcher.data.repositories.imagesRepositoryModule
+import com.bertalandancs.otpflickrsearcher.ui.details.detailsModule
 import com.bertalandancs.otpflickrsearcher.ui.main.mainModule
 import com.bertalandancs.otpflickrsearcher.ui.main.sharedPreferencesModule
 import org.koin.android.ext.koin.androidContext
@@ -33,6 +34,7 @@ class App : Application() {
                 imagesRepositoryModule,
                 networkModule,
                 mainModule,
+                detailsModule,
                 sharedPreferencesModule
             )
         }

@@ -7,30 +7,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bertalandancs.otpflickrsearcher.databinding.DetailsFragmentBinding
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-class DetailsFragment : Fragment() {
-
-    private lateinit var viewModel: DetailsViewModel
-
+class DetailsFragment(private val viewModel: DetailsViewModel) : Fragment() {
     private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
+    private val disposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = DetailsFragmentBinding.inflate(inflater,container,false)
+        _binding = DetailsFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        disposable.clear()
+        viewModelStore.clear()
     }
 }
