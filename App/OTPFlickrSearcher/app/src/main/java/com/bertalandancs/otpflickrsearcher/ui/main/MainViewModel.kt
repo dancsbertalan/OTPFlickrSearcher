@@ -1,10 +1,9 @@
 package com.bertalandancs.otpflickrsearcher.ui.main
 
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.bertalandancs.otpflickrsearcher.data.model.Photos
-import com.bertalandancs.otpflickrsearcher.data.repositories.GetImagesResponse
+import com.bertalandancs.otpflickrsearcher.data.repositories.SearchResponse
 import com.bertalandancs.otpflickrsearcher.data.repositories.ImagesRepository
 import com.bertalandancs.otpflickrsearcher.ui.main.model.ThumbnailImage
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -16,11 +15,11 @@ import timber.log.Timber
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-
+//SearchStatus and InfoStatus is similar maybe i can clean up (?)
 open class SearchStatus {
     data class Ok(val thumbnails: List<ThumbnailImage>, val page: Int) : SearchStatus()
-    data class Fail(val errorCode: Int) : SearchStatus()
 
+    data class Fail(val errorCode: Int) : SearchStatus()
     object InternetError : SearchStatus()
     data class UnknownError(val throwable: Throwable) : SearchStatus()
     data class Loading(val isLoading: Boolean) : SearchStatus()
@@ -53,7 +52,7 @@ class MainViewModel(
             .subscribe({
                 search.onNext(SearchStatus.Loading(false))
 
-                if (it is GetImagesResponse.StatusOk) {
+                if (it is SearchResponse.StatusOk) {
                     currentPhotos = it.photos
                     if (it.photos.photoList != null) {
                         val thumbnails = ArrayList<ThumbnailImage>()
@@ -65,7 +64,7 @@ class MainViewModel(
                         }
                         search.onNext(SearchStatus.Ok(thumbnails, currentPhotos.page))
                     }
-                } else if (it is GetImagesResponse.StatusFailed)
+                } else if (it is SearchResponse.StatusFailed)
                     search.onNext(SearchStatus.Fail(it.errorCode))
             }, {
                 Timber.e("getImages error: $it")

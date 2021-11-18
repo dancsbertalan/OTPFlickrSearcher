@@ -12,7 +12,6 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.fragment.koin.fragmentFactory
 import org.koin.core.context.startKoin
 import timber.log.Timber
-
 import timber.log.Timber.*
 
 
@@ -29,13 +28,15 @@ class App : Application() {
             androidLogger()
             androidContext(this@App)
             fragmentFactory()
-            modules(
-                flickrServiceModule,
-                imagesRepositoryModule,
-                networkModule,
-                mainModule,
-                detailsModule,
-                sharedPreferencesModule
+            koin.loadModules(
+                listOf(
+                    flickrServiceModule,
+                    imagesRepositoryModule,
+                    networkModule,
+                    mainModule,
+                    detailsModule,
+                    sharedPreferencesModule
+                )
             )
         }
     }

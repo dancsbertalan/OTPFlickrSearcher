@@ -1,5 +1,6 @@
 package com.bertalandancs.otpflickrsearcher.ui.main.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
@@ -8,7 +9,6 @@ import com.bertalandancs.otpflickrsearcher.R
 import com.bertalandancs.otpflickrsearcher.databinding.SearchResultItemBinding
 import com.bertalandancs.otpflickrsearcher.ui.main.model.ThumbnailImage
 import com.squareup.picasso.Picasso
-import timber.log.Timber
 
 class SearchResultsAdapter : RecyclerView.Adapter<SearchResultsAdapter.ViewHolder>() {
 
@@ -48,9 +48,15 @@ class SearchResultsAdapter : RecyclerView.Adapter<SearchResultsAdapter.ViewHolde
             binding.imageCard.setOnClickListener {
                 Navigation.findNavController(itemView)
                     .navigate(
-                        R.id.action_mainFragment_to_detailsFragment
+                        R.id.action_mainFragment_to_detailsFragment, Bundle().apply {
+                            putLong(IMAGE_ID, item.id)
+                        }
                     )
             }
         }
+    }
+
+    companion object {
+        private const val IMAGE_ID = "IMAGE_ID"
     }
 }

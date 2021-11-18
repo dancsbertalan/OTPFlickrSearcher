@@ -1,6 +1,7 @@
 package com.bertalandancs.otpflickrsearcher.view
 
 import android.content.Context
+import android.text.Html
 import android.text.util.Linkify
 import android.util.AttributeSet
 import android.util.Patterns
@@ -17,22 +18,41 @@ class DetailsItem(context: Context?, attrs: AttributeSet?) : LinearLayout(contex
     private var binding: DetailsItemBinding =
         DetailsItemBinding.inflate(LayoutInflater.from(context), this, false)
 
+    var title: String?
+        set(value) {
+            setText(value, binding.title)
+        }
+        get() = binding.title.text.toString()
+
+    var value: String
+        set(value) {
+            setText(value, binding.value)
+        }
+        get() = binding.value.text.toString()
+
     init {
         addView(binding.root)
         val attributes = context?.obtainStyledAttributes(attrs, R.styleable.DetailsItem)
+
         if (attributes != null) {
-            setText(attributes.getString(R.styleable.DetailsItem_title), binding.title)
-            val valueString = attributes.getString(R.styleable.DetailsItem_value)
-            setText(valueString, binding.value)
-            if (!valueString.isNullOrEmpty() && (URLUtil.isValidUrl(valueString) && Patterns.WEB_URL.matcher(
-                    valueString
-                ).matches())
-            ) Linkify.addLinks(binding.value, Linkify.WEB_URLS)
+            title = attributes.getString(R.styleable.DetailsItem_title) ?: ""
+            value = attributes.getString(R.styleable.DetailsItem_value) ?: ""
+
+            val isCentered = attributes.getBoolean(R.styleable.DetailsItem_centered, false)
+            if (isCentered) {
+                binding.value.textAlignment = TEXT_ALIGNMENT_CENTER
+                binding.title.textAlignment = TEXT_ALIGNMENT_CENTER
+            }
 
             attributes.recycle()
         }
     }
 
     private fun setText(text: String?, textView: TextView) =
-        if (text.isNullOrEmpty()) textView.isVisible = false else textView.text = text
+        if (text.isNullOrEmpty())
+            textView.isVisible = false
+        else {
+            textView.isVisible = true
+            textView.text = Html.fromHtml(text)
+        }
 }

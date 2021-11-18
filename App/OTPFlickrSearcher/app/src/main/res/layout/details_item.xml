@@ -8,14 +8,16 @@
     <TextView
         android:id="@+id/title"
         style="@style/DetailsItemTitleStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Title" />
 
     <TextView
         android:id="@+id/value"
         style="@style/DetailsItemValueStyle"
-        android:layout_width="wrap_content"
+        android:autoLink="web"
+        android:linksClickable="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="This is a really long long long long value for testing for a really long long long value" />
 

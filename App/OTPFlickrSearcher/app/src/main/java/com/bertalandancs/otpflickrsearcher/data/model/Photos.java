@@ -9,7 +9,7 @@ import java.util.List;
 @Root(name = "photos", strict = false)
 public class Photos {
     @ElementList(entry = "photo", inline = true, required = false)
-    public List<Photo> photoList;
+    public List<SearchPhoto> photoList;
 
     @Attribute(name = "page")
     public int page;
