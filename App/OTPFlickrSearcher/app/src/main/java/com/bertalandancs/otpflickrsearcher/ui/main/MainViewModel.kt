@@ -57,10 +57,10 @@ class MainViewModel(
                     if (it.photos.photoList != null) {
                         val thumbnails = ArrayList<ThumbnailImage>()
                         it.photos.photoList.forEach { photo ->
-                            if (!photo.urlN.isNullOrEmpty())
-                                thumbnails.add(ThumbnailImage(photo.id, photo.urlN))
-                            else
-                                thumbnails.add(ThumbnailImage(photo.id, photo.urlT))
+                            var url = photo.urlT
+                            if (photo.urlN != null)
+                                url = photo.urlN
+                            thumbnails.add(ThumbnailImage(photo.id, url))
                         }
                         search.onNext(SearchStatus.Ok(thumbnails, currentPhotos.page))
                     }

@@ -1,6 +1,8 @@
 package com.bertalandancs.otpflickrsearcher.data.model;
 
 
+import androidx.annotation.Nullable;
+
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
@@ -9,6 +11,7 @@ public class SearchPhoto {
     @Attribute(name = "id")
     public long id;
 
+    @Nullable
     @Attribute(name = "url_n", required = false)
     public String urlN;
 
